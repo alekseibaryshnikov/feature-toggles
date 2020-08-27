@@ -1,6 +1,10 @@
 package io.ambar.featuretoggles.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +25,16 @@ public class FeatureController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "features")
     public FeatureListResponse getFeatureList(@RequestBody FeatureRequestBody featureRequest) {
-        List<FeatureResponse> featureResponseList = featureRequest.getFeatureRequest().getFeatures().stream()
-                .map(feature -> featureToggleRepository.findByTechnicalName(feature.getName()))
-                .map(featureToggle -> new FeatureResponse(featureToggle, featureRequest)).collect(Collectors.toList());
+        FeatureListResponse response = new FeatureListResponse();
 
-        return new FeatureListResponse(featureResponseList);
+        if (featureRequest.getFeatureRequest() != null) {
+            response.setFeatures(Optional.ofNullable(featureRequest.getFeatureRequest().getFeatures())
+                    .orElseGet(Collections::emptyList).stream()
+                    .map(feature -> featureToggleRepository.findByTechnicalName(feature.getName()))
+                    .map(featureToggle -> new FeatureResponse(featureToggle, featureRequest))
+                    .collect(Collectors.toList()));
+        }
+
+        return response;
     }
 }

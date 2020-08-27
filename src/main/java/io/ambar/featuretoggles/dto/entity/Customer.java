@@ -1,10 +1,11 @@
 package io.ambar.featuretoggles.dto.entity;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 import lombok.Data;
 
@@ -12,10 +13,9 @@ import lombok.Data;
 @Data
 public class Customer {
     @Id @GeneratedValue
-    private Long customerBaseId;
-    private String customerId;
+    private Long customerId;
+    private String customerName;
 
-    @ManyToOne
-    @JoinColumn(name = "feature_id", nullable = false)
-    private FeatureToggle featureToggle;
+    @ManyToMany
+    private Set<FeatureToggle> featutreToggles;
 }
