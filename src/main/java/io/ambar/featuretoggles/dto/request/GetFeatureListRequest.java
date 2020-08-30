@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class FeatureRequestBody implements Serializable {
+public class GetFeatureListRequest implements Serializable {
     private static final long serialVersionUID = 1L;
     private FeatureRequestData featureRequest;
 

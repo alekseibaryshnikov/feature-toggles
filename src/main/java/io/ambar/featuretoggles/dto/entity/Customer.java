@@ -18,4 +18,8 @@ public class Customer {
 
     @ManyToMany
     private Set<FeatureToggle> featutreToggles;
+
+    Customer(String customerName) {
+        this.customerName = customerName;
+    }
 }

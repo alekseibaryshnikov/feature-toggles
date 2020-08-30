@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import io.ambar.featuretoggles.dto.entity.FeatureToggle;
-import io.ambar.featuretoggles.dto.request.FeatureRequestBody;
+import io.ambar.featuretoggles.dto.request.GetFeatureListRequest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +18,7 @@ public class FeatureResponse implements Serializable {
     private boolean inverted;
     private boolean expired; 
 
-    public FeatureResponse(FeatureToggle featureToggle, FeatureRequestBody featureRequest) {
+    public FeatureResponse(FeatureToggle featureToggle, GetFeatureListRequest featureRequest) {
         boolean isActive = featureToggle.getCustomers().stream().anyMatch(
             f -> f.getCustomerId().equals(featureRequest.getFeatureRequest().getCustomerId()));
             

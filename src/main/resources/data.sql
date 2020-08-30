@@ -25,7 +25,8 @@ insert into
         technical_name,
         expires_on,
         description,
-        inverted
+        inverted,
+        archived
     )
 values
     (
@@ -34,6 +35,7 @@ values
         'feature_1',
         { ts '2020-09-20 18:55:00' },
         'Some interesting feature which make you life easier.',
+        0,
         0
     );
 
@@ -45,7 +47,8 @@ insert into
         technical_name,
         expires_on,
         description,
-        inverted
+        inverted,
+        archived
     )
 values
     (
@@ -54,6 +57,7 @@ values
         'feature_2',
         { ts '2020-07-20 18:55:00' },
         'One feature which expired :(',
+        0,
         0
     );
 
@@ -65,7 +69,8 @@ insert into
         technical_name,
         expires_on,
         description,
-        inverted
+        inverted,
+        archived
     )
 values
     (
@@ -74,6 +79,7 @@ values
         'feature_3',
         { ts '2020-09-21 18:55:00' },
         'Another mock.',
+        0,
         0
     );
 
