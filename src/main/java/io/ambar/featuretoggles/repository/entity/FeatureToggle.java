@@ -1,4 +1,4 @@
-package io.ambar.featuretoggles.dto.entity;
+package io.ambar.featuretoggles.repository.entity;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -12,9 +12,11 @@ import javax.persistence.ManyToMany;
 
 import io.ambar.featuretoggles.dto.request.PutFeatureRequest;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class FeatureToggle {
     @Id 
     @GeneratedValue

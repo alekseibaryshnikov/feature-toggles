@@ -1,4 +1,4 @@
-package io.ambar.featuretoggles.dto.entity;
+package io.ambar.featuretoggles.repository.entity;
 
 import java.util.Set;
 
@@ -8,7 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Entity
 @Data
 public class Customer {

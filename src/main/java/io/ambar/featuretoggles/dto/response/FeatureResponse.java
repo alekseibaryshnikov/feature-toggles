@@ -3,7 +3,7 @@ package io.ambar.featuretoggles.dto.response;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import io.ambar.featuretoggles.dto.entity.FeatureToggle;
+import io.ambar.featuretoggles.repository.entity.FeatureToggle;
 import io.ambar.featuretoggles.dto.request.GetFeatureListRequest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
