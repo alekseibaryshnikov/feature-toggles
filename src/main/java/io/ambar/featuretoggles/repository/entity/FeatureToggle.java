@@ -36,13 +36,13 @@ public class FeatureToggle {
     )
     private Set<Customer> customers;
 
-    public FeatureToggle(PutFeatureRequest putFeatureRequest) {
+    public FeatureToggle convert(PutFeatureRequest putFeatureRequest) {
         displayName = putFeatureRequest.getDisplayName();
         technicalName = putFeatureRequest.getTechnicalName();
         expiresOn = putFeatureRequest.getExpiresOn();
         description = putFeatureRequest.getDescription();
         inverted = putFeatureRequest.isInverted();
-        archived = putFeatureRequest.isAcrhived();
-        putFeatureRequest.getCustomsers().forEach(customer -> customers.add(new Customer(customer)));
+        archived = putFeatureRequest.isArchived();
+        return this;
     }
 }

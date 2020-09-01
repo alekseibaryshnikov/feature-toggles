@@ -19,7 +19,7 @@ public class Customer {
     private String customerName;
 
     @ManyToMany
-    private Set<FeatureToggle> featutreToggles;
+    private Set<FeatureToggle> featureToggles;
 
     Customer(String customerName) {
         this.customerName = customerName;

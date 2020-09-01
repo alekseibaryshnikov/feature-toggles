@@ -16,7 +16,10 @@ public class FeatureResponse implements Serializable {
     private String name;
     private boolean active;
     private boolean inverted;
-    private boolean expired; 
+    private boolean expired;
+    private LocalDateTime expiresOn;
+    private String displayName;
+    private String description;
 
     public FeatureResponse(FeatureToggle featureToggle, GetFeatureListRequest featureRequest) {
         boolean isActive = featureToggle.getCustomers().stream().anyMatch(
@@ -26,5 +29,8 @@ public class FeatureResponse implements Serializable {
         active = isActive;
         expired = LocalDateTime.now().isAfter(featureToggle.getExpiresOn());
         inverted = !featureToggle.isInverted();
+        expiresOn = featureToggle.getExpiresOn();
+        displayName = featureToggle.getDisplayName();
+        description = featureToggle.getDescription();
     }
 }

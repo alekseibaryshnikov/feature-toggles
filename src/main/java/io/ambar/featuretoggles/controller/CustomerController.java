@@ -13,8 +13,12 @@ import io.ambar.featuretoggles.repository.CustomerRepository;
 
 @RestController
 public class CustomerController {
+    private final CustomerRepository customerRepository;
+
     @Autowired
-    private CustomerRepository customerRepository;
+    public CustomerController(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
     @GetMapping(path = "customers")
     public List<Customer> getCustomers() {
