@@ -86,31 +86,31 @@ values
 -- Create links
 -- #1
 insert into
-    FEATURE_TOGGLE__CUSTOMER (feature_id, customer_id)
+    CUSTOMER__FEATURE_TOGGLE (customer_id, feature_id)
 values
     (0, 0);
 -- #2
 insert into
-    FEATURE_TOGGLE__CUSTOMER (feature_id, customer_id)
+    CUSTOMER__FEATURE_TOGGLE (customer_id, feature_id)
 values
     (0, 1);
 -- #3
 insert into
-    FEATURE_TOGGLE__CUSTOMER (feature_id, customer_id)
+    CUSTOMER__FEATURE_TOGGLE (customer_id, feature_id)
 values
     (0, 2);
 -- #4
 insert into
-    FEATURE_TOGGLE__CUSTOMER (feature_id, customer_id)
+    CUSTOMER__FEATURE_TOGGLE (customer_id, feature_id)
 values
     (1, 1);
 -- #5
 insert into
-    FEATURE_TOGGLE__CUSTOMER (feature_id, customer_id)
+    CUSTOMER__FEATURE_TOGGLE (customer_id, feature_id)
 values
     (1, 2);
 -- #6
 insert into
-    FEATURE_TOGGLE__CUSTOMER (feature_id, customer_id)
+    CUSTOMER__FEATURE_TOGGLE (customer_id, feature_id)
 values
     (2, 2);

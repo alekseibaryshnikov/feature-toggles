@@ -5,13 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.ambar.featuretoggles.dto.request.BindFeatureToCustomerRequest;
 import io.ambar.featuretoggles.repository.CustomerRepository;
@@ -36,15 +30,17 @@ public class CustomerController {
         return StreamSupport.stream(customerRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
-    @PostMapping(path = "customer/feature")
+    @PatchMapping(path = "customer/feature")
     public void bindFeatureToCustomer(@RequestBody BindFeatureToCustomerRequest request) {
         featureToggleRepository.findById(request.getFeatureId()).ifPresent(feature -> customerRepository
-                .findById(request.getFeatureId()).ifPresent(customer -> customer.getFeatureToggles().add(feature)));
-    }
+                .findById(request.getCustomerId()).ifPresent(customer -> {
+                    if (request.isActive()) {
+                        customer.getFeatureToggles().add(feature);
+                    } else {
+                        customer.getFeatureToggles().remove(feature);
+                    }
 
-    @DeleteMapping(path = "customer/feature")
-    public void unbindFeatureFromCustomer(@RequestParam Long featureId, @RequestParam Long customerId) {
-        featureToggleRepository.findById(featureId).ifPresent(feature -> customerRepository.findById(customerId)
-                .ifPresent(customer -> customer.getFeatureToggles().remove(feature)));
+                    customerRepository.save(customer);
+                }));
     }
 }

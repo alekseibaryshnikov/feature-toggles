@@ -46,6 +46,7 @@ public class FeatureController {
         List<FeatureToggle> features = featureToggleRepository.findByTechnicalNameIn(featureNames);
 
         response.setFeatures(Optional.ofNullable(features).orElseGet(Collections::emptyList).stream()
+                .filter(f -> !featureRequest.getFeatureRequest().isArchive())
                 .map(featureToggle -> new FeatureResponse(featureToggle, featureRequest)).collect(Collectors.toList()));
 
         return response;
@@ -54,11 +55,12 @@ public class FeatureController {
     @GetMapping(path = "feature/names")
     public List<String> getFeaturesNames() {
         return StreamSupport.stream(featureToggleRepository.findAll().spliterator(), true)
+                .filter(f -> !f.isArchived())
                 .map(FeatureToggle::getTechnicalName).collect(Collectors.toList());
     }
 
     @GetMapping(path = "feature")
-    public List<FeatureToggle> postFeatureList() {
+    public List<FeatureToggle> getFeatureList() {
         return StreamSupport.stream(featureToggleRepository.findAll().spliterator(), true).collect(Collectors.toList());
     }
 

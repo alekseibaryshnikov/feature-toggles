@@ -1,27 +1,34 @@
 package io.ambar.featuretoggles.repository.entity;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @NoArgsConstructor
 @Entity
 @Data
+@EqualsAndHashCode(exclude = "featureToggles")
+@ToString(exclude = "featureToggles")
 public class Customer {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long customerId;
     private String customerName;
 
+    @JsonIgnore
     @ManyToMany
-    private Set<FeatureToggle> featureToggles;
+    @JoinTable(
+            name = "customer__feature_toggle",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "feature_id")
+    )
+    private Set<FeatureToggle> featureToggles = new LinkedHashSet<>();
 
-    Customer(String customerName) {
-        this.customerName = customerName;
-    }
 }

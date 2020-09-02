@@ -1,23 +1,23 @@
 package io.ambar.featuretoggles.repository.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.ambar.featuretoggles.dto.request.PutFeatureRequest;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "customers")
+@ToString(exclude = "customers")
 public class FeatureToggle {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +29,9 @@ public class FeatureToggle {
     private boolean inverted;
     private boolean archived;
 
-    @ManyToMany
-    @JoinTable(
-        name = "feature_toggle__customer",
-        joinColumns = @JoinColumn(name = "feature_id"),
-        inverseJoinColumns = @JoinColumn(name = "customer_id")
-    )
-    private Set<Customer> customers;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "featureToggles")
+    private Set<Customer> customers = new HashSet<>();
 
     public FeatureToggle convert(PutFeatureRequest putFeatureRequest) {
         displayName = putFeatureRequest.getDisplayName();

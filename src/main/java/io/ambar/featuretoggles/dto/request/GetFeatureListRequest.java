@@ -16,6 +16,7 @@ public class GetFeatureListRequest implements Serializable {
         
         private Long customerId;
         private List<FeatureRequestType> features;
+        private boolean isArchive;
     }
 
     @Data
